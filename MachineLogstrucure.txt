@@ -1,0 +1,87 @@
+
+
+*************************************
+* mechanical engineering core areas *
+*    95% Maschinenbau abgedeckt     *
+*************************************
+
+1)  Antriebstechnik
+2)  Hydraulik/Pneumatik
+3)  Robotik/Automatisierung
+4)  Fertigung/Prozesstechnik
+5)  Qualitätssicherung/Inspection
+6)  Energietechnik/Elektrik
+7)  Wartung/Condition Monitoring
+8)  Sicherheitsschutz/Safety Systems
+9)  Sensorik/Mess- und Prüftechnik
+10) Materialwirtschaft/Logistik
+11) Umwelttechnik/Abgas-/Kühlungssysteme
+12) Datenkommunikation/Netzwerk
+13) Software/Steuerungssysteme (SPS/PLC)
+14) Korrosionsschutz / Oberflächentechnik
+
+    ⁞
+    ⁞
+    ⁞
+    ▼
+
+*************************************
+**       Identifyer Log columns    **
+*************************************
+-> hat Mohamad bereits
+
+    DATE/TIME                       → whitespace (z. B. "2026-02-23 20:11:44,503")
+    Severity                        → whitespace vor/nach (z. B. "INFO")
+    THREAD                          → eckige Klammern [ ] (z. B. "[metrics-agent]")
+    SOURCE/LOGGER                   → whitespace getrennt, oft FQCN direkt nach Thread (z. B. "com.example.MyClass")
+    MESSAGE/PREFIX                  → space + hyphen + space " - " (trennt Header von Message)
+        KEY=VALUE im Message            → Semikolon + space "; " (oder Komma + space ", ")
+        Zusammengesetzte Header‑Items   → Pipe "|" innerhalb der Klammer (z. B. "[SCADA|conn=FD-127]")
+        HOST/PID/TID                    → oft in Klammern "(host=host1 pid=1234)" oder als weitere token in [..]
+        TRACE/REQUEST IDs               → meist als token im Header oder als "key=value" im Message, getrennt mit whitespace oder "; "
+        STACKTRACE                      → newline (mehrzeilig), beginnt direkt nach Message und eingerückt
+
+    ⁞
+    ⁞
+    ⁞
+    ▼
+
+
+
+*****************************************************
+*                   Log Structure                   *
+* Welche Spalten und Daten (ETL) braucht ML/KI ???? *
+*****************************************************
+
+
+
+   Label-Machine-Log-Excample:
+          
+   DATE      |     Time     | Severity |      THREAD       |      Sys SOURCE                           |   MESSAGE            
+             |              |          |                   |                                           |      
+  2026-10-17 | 15:37:56,547 | INFO     | [main]            | com.logistic.labelmachine.SystemManager:  | Package processed successfully | SHIPMENT_ID=Sp260301203357 | Station=Station-04 | EXP=0.572kg ACT=0.65707kg TARE=0.09kg KOT=0.012% | Articles=1 | BOX_BARCODE=BC_SMALL100
+             |              |          |                   |                                           |
+             |              |          |                   |                                           |
+  2026-10-17 | 15:40:38,002 | ERROR    | [VerifyThread-2]  | com.logistic.labelmachine.SystemManager:  | Barcode unreadable (Scan error) | expected SHIPMENT_ID=Sp260301203517 | BOX_BARCODE=XX_LARGE60
+			 |              |          |                   |                                           |   
+             |              |          |                   |                                           |
+  2026-10-17 | 15:38:01,731 | INFO     | [VerifyThread-3]  | com.logistic.labelmachine.SystemManager:  | Verification successful | ISO/IEC15416 Grade=A | SHIPMENT_ID=Sp260301203357
+             |              |          |                   |                                           |
+             |              |          |                   |                                           |
+  2026-10-17 | 15:42:46,407 | WARN     | [KickoutThread-1] | com.logistic.labelmachine.SystemManager:  | Overweight detected | SHIPMENT_ID=Sp260301203358 | EXP=2.349kg ACT=2.4275kg TARE=0.11kg KOT=0.012% | LIMIT=5.9kg | Station=Station-06 | BOX_BARCODE=BC_MEDIUM200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
