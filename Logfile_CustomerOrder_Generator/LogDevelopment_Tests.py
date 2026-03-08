@@ -66,12 +66,11 @@ from datetime import datetime, timedelta
 
 # ==========================================================================================
 
-# START_TIME = datetime(2026, 1, 12, 0, 0, 0)
-# current_time = START_TIME
-# current_time += timedelta(seconds=random.uniform(10, 25))
-#
-# print(START_TIME)
-# print(current_time)
+rd = random.choices([1, 2], weights=[1, 9])[0]
+print(rd)
+
+
+
 
 # ==========================================================================================
 
@@ -111,7 +110,8 @@ from datetime import datetime, timedelta
 
 # ==========================================================================================
 
-rd = 1
-rd = 2 if rd == 1 else 1
+#  actual_rndm_perc = random.choices([0.3, 3.1], weights=[6, 1])[0]
 
-print(rd)
+#
+# actual_rndm_perc = random.uniform(0.2, 4)
+# print(actual_rndm_perc)
