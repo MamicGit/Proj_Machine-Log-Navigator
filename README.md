@@ -1,0 +1,3 @@
+Project 'Machinelog-Navigator'
+
+tbd
