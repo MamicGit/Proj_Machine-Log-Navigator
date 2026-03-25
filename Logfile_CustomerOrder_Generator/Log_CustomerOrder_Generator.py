@@ -1,5 +1,6 @@
 import random
 from datetime import datetime, timedelta
+import math
 
 # -----------------------------
 # Konfiguration
@@ -14,14 +15,14 @@ MAX_WEIGHT_KG = 5.9
 STATIONS = [f"Station-{i:02}" for i in range(1, 13)]
 
 BOX_TYPES = {
-    "BC_SMALL100": 0.090,
-    "BC_MEDIUM200": 0.110,
-    "BC_LARGE400": 0.130,
-    "RK_SMALL60": 0.070,
-    "RK_SMALL70": 0.090,
-    "RK_SMALL90": 0.120,
-    "XX_LARGE60": 0.240,
-    "XX_LARGE80": 0.290
+    "RK_SMALL60": [0.070, 0.05],
+    "RK_SMALL70": [0.090, 0.06],
+    "BC_SMALL100": [0.090, 0.07],
+    "BC_MEDIUM200": [0.110, 0.09],
+    "RK_SMALL90": [0.120, 0.12],
+    "BC_LARGE400": [0.130, 0.16],
+    "XX_LARGE60": [0.240, 0.21],
+    "XX_LARGE80": [0.290, 0.24]
 }
 
 LABEL_THREADS = ["LabelThread-1", "LabelThread-2", "LabelThread-3", "LabelThread-4"]
@@ -51,20 +52,20 @@ def log_line(timestamp, level, thread, it_source, message):
 # nebst Zufalls-Variable 2 da nicht jede Diff ein found/miss sein soll
 def physical_problem_found(a, w, d):
     act = a * 1000
-    wdf = w * 1000
+    wdf = abs(w * 1000)
     random_package = d
     package_problem_fixed = "N"
 
-    if (100 <= act <= 750) and (40 <= wdf <= 50) and random_package == 2:
+    if (100 <= act <= 750) and (35 <= wdf <= 60) and random_package == 2:   # 10 wdf     25% found      4
         package_problem_fixed = "Y"
 
-    if (751 <= act <= 1500) and (60 <= wdf <= 80) and random_package == 2:
+    if (751 <= act <= 1500) and (55 <= wdf <= 80) and random_package == 2:
         package_problem_fixed = "Y"
 
-    if (1500 <= act <= 3000) and (115 <= wdf <= 135) and random_package == 2:
+    if (1500 <= act <= 3000) and (72 <= wdf <= 120) and random_package == 2:
         package_problem_fixed = "Y"
 
-    if act > 3000 and wdf > 165 and random_package == 2:
+    if act > 3000 and (115 <= wdf <= 200) and random_package == 2:          # 100 wdf     25% found     40
         package_problem_fixed = "Y"
 
     return package_problem_fixed
@@ -92,7 +93,7 @@ def simulate_day():
     reorder_buffer = []
 
     # Steuerung der max. 10–25 TOL>0.05% pro Stunde
-    current_hour = current_time.hour                       # Definieren akt Std für KO Limit
+    current_hour = current_time.hour              # Definieren akt Std für KO Limit
 
     lbl_printer_id = "SLAM5_LP1"
     lbl_printer_ribbon1 = 500
@@ -150,16 +151,22 @@ def simulate_day():
         # definieren der Gewichte EXP, ACT
         product_weight = random_product_weight()                # mein Basiswert für EXP weight
         box_barcode = random.choice(list(BOX_TYPES.keys()))     # zufällige Auswahl der Verpackungen/Boxes
-        tare_weight = BOX_TYPES[box_barcode]                    # Leerverpackungsgewicht
+        tare_weight = BOX_TYPES[box_barcode][0]                 # Leerverpackungsgewicht
 
         expected_weight = round(product_weight, 3)              # EXP aus EINEM Artikelgewicht zw. 0.02kg bis 6g
 
         # aus EXP ein zufälliges ACT weight bestimmen zw.
-        actual_rndm_perc = round(random.uniform(0.3, 1.2) if random.random() < 0.7 else random.uniform(1.2, 6.5), 2)    # Pakete können bis zu 3.1% Gewichtsunterschiede haben, 1 von 7 im hohen Bereich
-        actual_weight = round(expected_weight - tare_weight - (expected_weight / 100 * actual_rndm_perc), 5)
+        actual_rndm_perc = round(random.uniform(0.3, 1.2) if random.random() < 0.8 else random.uniform(1.2, 6.5), 2)    # Pakete können bis zu 3.1% Gewichtsunterschiede haben, 1 von 7 im hohen Bereich
 
-        weight_diff = round((expected_weight - (tare_weight + actual_weight)), 5)
-        weight_diff_perc = weight_diff *100 / expected_weight
+        # zufällige Verteilung der positiven/negativen Gewichtsunterschiede
+        fnd_miss_rdm = random.randint(1, 2)
+        actual_rndm_perc = actual_rndm_perc if fnd_miss_rdm == 1 else actual_rndm_perc * -1
+
+        # berechnung ACT weight
+        actual_weight = round(expected_weight + tare_weight + (expected_weight / 100 * actual_rndm_perc), 5)
+
+        weight_diff = round((expected_weight - (actual_weight - tare_weight)), 5)
+        weight_diff_perc = abs(weight_diff * 100 / expected_weight)
 
     # hier KO threshold (%) manuell anpassen solang. Wir später unser ML Modell übernehmen
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -175,59 +182,71 @@ def simulate_day():
         label_thread = random.choice(LABEL_THREADS)
         verify_thread = random.choice(VERIFY_THREADS)
 
-        # print(shipment_str)
-        # print(actual_weight)
-        # print(round(weight_diff * 1000,0))
+        # Testline
+        # print(f"shipment_str: {shipment_str}  EXP: {expected_weight:.5f}  TARE: {tare_weight}  ACT: {actual_weight:.5f}  DIFF: {round(weight_diff * 1000,0):.1f}g -> {weight_diff_perc:.2f}")
 
         # -----------------------------
         # Über-Gewicht
         # -----------------------------
         if weight_diff_perc > ko_threshold:
-            rd = random.randint(1, 4)
+            rd = random.randint(1, 4)   # 1 2 3 4  1 2 3 4
             is_problem_found = physical_problem_found(actual_weight, weight_diff, rd)
             ipf = is_problem_found
 
-            # wenn physisches Problem soll random ACT größer oder kleiner sein, mal fehlen Artikel, mal sind welche zuviel
-            if ipf =="Y":
-                fnd_miss_rdm = random.randint(1, 2)
-                actual_weight_mod = actual_weight if fnd_miss_rdm == 1 else expected_weight - tare_weight + (expected_weight - tare_weight - actual_weight)
-            else:
-                actual_weight_mod = actual_weight
+            # die physisch gefundenen steigen je größer die Leerverpackung, sowie je mehr Artikel im Paket desto höher die Wahrscheinlichkeit
+            tare_weight_org = tare_weight
+            if ipf == "Y":
+                weights_b = [v[1] for v in BOX_TYPES.values()]
+                total = sum(weights_b)
+                probabilities = [w / total for w in weights_b]
+                box_barcode = random.choices(list(BOX_TYPES.keys()), weights=probabilities, k=1)[0]
+                tare_weight = BOX_TYPES[box_barcode][0]
+                actual_weight = actual_weight - (tare_weight_org - tare_weight)
+
+                numbers = list(range(2, 21))
+                weights_a = [math.exp((n - 20) / 5) for n in numbers]
+                article_count = random.choices(numbers, weights=weights_a, k=1)[0]
 
             logs.append(log_line(current_time,
                                  "WARN",
                                  "KickoutThread-1",
                                  "com.logistic.conveyer.ScaleHandlerSys:",
-                                 f"Overweight detected | SHIPMENT_ID={shipment_str} | EXP={expected_weight}kg ACT={actual_weight_mod}kg "
-                f"TARE={tare_weight}kg KOT={ko_threshold}% | LIMIT={MAX_WEIGHT_KG}kg | Station={station} | BOX_BARCODE={box_barcode} | PckgProblFound={ipf}"))
+                                 f"Overweight detected | SHIPMENT_ID={shipment_str} | EXP={expected_weight}kg ACT={actual_weight}kg "
+                f"TARE={tare_weight}kg KOT={ko_threshold}% | LIMIT={MAX_WEIGHT_KG}kg | Station={station} | BOX_BARCODE={box_barcode} | Articles={article_count} | PckgProblFound={ipf}"))
+
+            # Testline
+            # print(f"shipment_str: {shipment_str}  EXP: {expected_weight:.5f}  TARE: {tare_weight}  ACT: {actual_weight:.5f}  DIFF: {round(weight_diff * 1000,0):.1f}g -> {weight_diff_perc:.2f}")
+
             continue
 
         # -----------------------------
         # Code auffälliger Arbeitsplatz hohe Kickoutrate zwischen Schichtbeginn 06:00 bis 06:30
         # -----------------------------
 
-        if 6 <= current_hour < 7 and (station == 'Station-11' or station == 'Station-12'):
-            actual_rndm_perc = round(random.uniform(1.19, 1.2) if random.random() < 0.01 else random.uniform(1.2, 6.5), 2)
-            actual_weight = round(expected_weight - tare_weight - (expected_weight / 100 * actual_rndm_perc), 5)
-            weight_diff = round((expected_weight - (tare_weight + actual_weight)), 5)
+        # current_hour = float(current_time.hour + START_TIME.minute / 60)
+        if (6 <= current_hour < 7 or 21 <= current_hour < 23) and (station == 'Station-11' or station == 'Station-12'):
+            # Verteilung bei KOs zu Station 11 und 12 zu 10% zwischen 1.20 und 1.89 kg, 90% > 1.9
+            actual_rndm_perc = round(random.uniform(1.20, 1.89) if random.random() < 0.10 else random.uniform(1.9, 6.5), 2)
 
-            rd = 2
+            fnd_miss_rdm = random.randint(1, 2)
+            actual_rndm_perc = actual_rndm_perc if fnd_miss_rdm == 1 else actual_rndm_perc * -1
+
+            actual_weight = round(expected_weight + tare_weight + (expected_weight / 100 * actual_rndm_perc), 5)
+            weight_diff = round((expected_weight - (actual_weight - tare_weight)), 5)
+
+            # 90% sollen auch physisch gefunden werden
+            rd = random.choices([1, 2], weights=[10, 90])[0]
             is_problem_found = physical_problem_found(actual_weight, weight_diff, rd)
             ipf = is_problem_found
 
-            # wenn physisches Problem soll random ACT größer oder kleiner sein, mal fehlen Artikel, mal sind welche zuviel
-            if ipf =="Y":
-                fnd_miss_rdm = random.randint(1, 2)
-                actual_weight_mod = actual_weight if fnd_miss_rdm == 1 else expected_weight - tare_weight + (expected_weight - tare_weight - actual_weight)
-            else:
-                actual_weight_mod = actual_weight
+            # print(f"shipment_str: {shipment_str}  EXP: {expected_weight:.5f}  TARE: {tare_weight}  ACT: {actual_weight:.5f}  DIFF: {round(weight_diff * 1000,0):.1f}g")
 
             logs.append(log_line(current_time,
                                  "WARN",
                                  "KickoutThread-1",
                                 "com.logistic.conveyer.ScaleHandlerSys:",
-                                 f"Overweight detected | SHIPMENT_ID={shipment_str} | EXP={expected_weight}kg ACT={actual_weight_mod}kg "
-                f"TARE={tare_weight}kg KOT={ko_threshold}% | LIMIT={MAX_WEIGHT_KG}kg | Station={station} | BOX_BARCODE={box_barcode} | PckgProblFound={ipf}"))
+                                 f"Overweight detected+ | SHIPMENT_ID={shipment_str} | EXP={expected_weight}kg ACT={actual_weight}kg "
+                f"TARE={tare_weight}kg KOT={ko_threshold}% | LIMIT={MAX_WEIGHT_KG}kg | Station={station} | BOX_BARCODE={box_barcode} | Articles={article_count} | PckgProblFound={ipf}"))
             continue
 
         # -----------------------------

@@ -32,11 +32,14 @@ from datetime import datetime, timedelta
 # print(station)
 
 # ==========================================================================================
-# START_TIME = datetime(2026, 1, 12, 6, 30, 0)
+
+# START_TIME = datetime(2026, 1, 12, 6, 20, 0)
+# current_hour = START_TIME.hour + START_TIME.minute / 60
 #
-# jetzt = datetime.now()
-# filename = f"{START_TIME.year%10000}{START_TIME.month:02d}{START_TIME.day:02d}_V{jetzt.hour:02d}{jetzt.minute:02d}"
-# print(filename)
+# if 6.2 <= current_hour < 6.3:
+#     print(current_hour)
+
+
 # ==========================================================================================
 
 # lbl_printer_id = "SLAM5_LP2"
@@ -66,8 +69,8 @@ from datetime import datetime, timedelta
 
 # ==========================================================================================
 
-rd = random.choices([1, 2], weights=[1, 9])[0]
-print(rd)
+# rd = random.choices([1, 2], weights=[1, 9])[0]
+# print(rd)
 
 
 
@@ -115,3 +118,31 @@ print(rd)
 #
 # actual_rndm_perc = random.uniform(0.2, 4)
 # print(actual_rndm_perc)
+
+# ==========================================================================================
+
+for i in range(50):
+    BOX_TYPES = {
+        "RK_SMALL60": [0.070, 0.05],
+        "RK_SMALL70": [0.090, 0.06],
+        "BC_SMALL100": [0.090, 0.07],
+        "BC_MEDIUM200": [0.110, 0.09],
+        "RK_SMALL90": [0.120, 0.10],
+        "BC_LARGE400": [0.130, 0.17],
+        "XX_LARGE60": [0.240, 0.20],
+        "XX_LARGE80": [0.290, 0.24]
+    }
+
+
+    box_barcode_org = random.choice(list(BOX_TYPES.keys()))
+    rnd_pckg_weighted_org = BOX_TYPES[box_barcode_org][1]
+
+    weights = [v[1] for v in BOX_TYPES.values()]
+    total = sum(weights)
+    probabilities = [w / total for w in weights]
+
+    box_barcode_weight = random.choices(list(BOX_TYPES.keys()), weights=probabilities, k=1)[0]
+    rnd_pckg_weighted = BOX_TYPES[box_barcode_weight][1]
+
+    print(f"org: {box_barcode_org} | weighted: {rnd_pckg_weighted_org} | new: {box_barcode_weight} | weighted: {rnd_pckg_weighted}")
+    i += 1
