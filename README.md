@@ -12,7 +12,7 @@ a machinelearning modell for the purpose of reducing package-kickouts for manual
 <br></br>
 
 Access the Webpage-Dashboard via Amazon EC2 Webservice: 
-<br>Link: ![MachineLogNavigator](https://github.com/MamicGit/Proj_Machine-Log-Navigator/raw/main/images/ShowUnderConstruction.png)
+<br>Link: ![MachineLogNavigator](https://github.com/MamicGit/Proj_Machine-Log-Navigator/blob/main/ShowUnderConstruction.png)
 
 <br><br><br>
 April 2026 .
