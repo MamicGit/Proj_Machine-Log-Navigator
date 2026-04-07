@@ -1,5 +1,5 @@
 # Project 'Machinelog-Navigator'
-## DSI Data Science Institute by Fabian Rappert
+DSI Data Science Institute by Fabian Rappert
 Project process by Mohamad, Marco und Michael (April 2026)  
 <br></br>
 ## Project Idea:<br>Optimization and Controlling in Logistics – Parcel Shipping Process 
@@ -14,4 +14,4 @@ a machinelearning modell for the purpose of reducing package-kickouts for manual
 
 
 
-April 2026
+<br><br><br>April 2026
