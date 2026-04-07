@@ -4,7 +4,7 @@ Project process by Mohamad, Marco und Michael (April 2026)
 <br></br>
 ## Project Idea:<br>Optimization and Controlling in Logistics – Parcel Shipping Process 
 
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 1. **GOAL:** <br>
 a web-based dashboard based on the log data of a parcel shipping label printer for the purpose of monitoring the packing line
