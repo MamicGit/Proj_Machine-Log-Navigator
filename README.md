@@ -12,7 +12,8 @@ a machinelearning modell for the purpose of reducing package-kickouts for manual
 <br></br>
 
 Access the Webpage-Dashboard *(Amazon EC2 Webservice)*: 
-<br>Link: [MachineLogNavigator](./images/ShowUnderConstruction.png)
+<br><b>NOTE:</b> No Risk! Accept the use of an insecure connection in the browser's warning message.
+<br>Link: [MachineLogNavigator](http://54.225.90.74/)
 
 <br><br><br>
 April 2026 .
