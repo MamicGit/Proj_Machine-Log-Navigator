@@ -13,7 +13,7 @@ with col3:
     options = ["SLAM-ALL", "SLAM01", "SLAM02", "SLAM03", "SLAM04", "SLAM05", "SLAM06", "SLAM07", "SLAM08", "....."]
     default_index = 0
     option = st.selectbox(
-        label="**Select Packaging Line Station** (*SLAM*)",
+        label="**Select Packaging Line Station** \n\n(*SLAM-STATION*)",
         options=options,
         index=default_index
     )
