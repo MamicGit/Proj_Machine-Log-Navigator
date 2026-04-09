@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 st.set_page_config(page_title="MLN | Dashboard", layout="wide", initial_sidebar_state="expanded")
 
@@ -20,3 +21,8 @@ with col3:
 
 st.write("KPI's & Statistics for Packaging Line Controlling")
 
+st.write("")
+
+image_path = "./images/ShowUnderConstruction.png"
+image = Image.open(image_path)
+st.image(image, caption="Mein Bild", width=900)
