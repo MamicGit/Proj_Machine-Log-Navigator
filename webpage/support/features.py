@@ -22,10 +22,12 @@ with col1:
             ),
             tt_descr = st.text_area("*Describe your idea / improvement:*")
             submitted  = st.form_submit_button()
+            if submitted and tt_descr.strip() == "":
+                st.markdown(":red[**Note:** Description missing, field cannot be left blank!]")
 
 st.divider()
 
-if submitted:
-    st.markdown("**NOTE:** :red[The ticket content will not be sent in this version, as specific internal company ticket processes must be configured here!]")
+if submitted and tt_descr.strip() != "":
+    st.markdown("**NOTE:** :red[In this version, ticket content will not be sent because a company’s internal ticket procedures must be configured first!]")
     st.write(f"**Category:** {option[0]}")
     st.write("**Description:** ", tt_descr)
