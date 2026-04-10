@@ -12,6 +12,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 *[Tt][Ee][Ss][Tt]*
+*[Mm][Oo][Cc][Kk][Uu][Pp]*
 
 # AWS User-specific
 .idea/**/aws.xml
