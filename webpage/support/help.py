@@ -20,7 +20,7 @@ with col1:
         "PckgLine Matrix": "Shows all packaging lines for direct comparisons",
         "Data Management": "Upload / Download Data, inspect raw data",
         "Site Search": "This page :wink:",
-        "Insights": "On this page its planed to provide logics of data we have provide in the portal",
+        "Insights": "The Insights page provides some important information about specific meanings of packaging line components.",
         "Feature Request": "Requesting the addition of a feature to enhance user experience and functionality.",
         "KPI": "KPI stands for 'Key Performance Indicator' and refers to measurable values that assess the success or progress of an organization or project.\nThey help track performance and inform strategic decisions.",
         "Other": "Since this type of '**help-section**' varies greatly depending on the company and specific use cases, its content here is generally temporary."

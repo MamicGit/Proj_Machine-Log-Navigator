@@ -1,14 +1,104 @@
 import streamlit as st
-from PIL import Image
+import sqlite3
+import pandas as pd
+import os
 
 st.set_page_config(page_title="MLN | Data-Mgmt", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("<u>Dashboard & Data ▪ Data-Mgmt</u>", unsafe_allow_html=True)
 st.markdown("# **Data Management**")
-st.write("Store, manage and access data")
+st.markdown("#### **for Analysts and Research**")
+st.write("View, manage and download data")
 
-st.write("")
+st.markdown("<br>", unsafe_allow_html=True)
 
-image_path = "./images/ShowUnderConstruction.png"
-image = Image.open(image_path)
-st.image(image, caption="Mein Bild", width=900)
+# # # fetch data from SQLite database for the 2 tables: logs_raw, shipments
+@st.cache_data
+def SQLite_source():
+    conn = sqlite3.connect("label_machine.db")
+
+    # fetching normalized data
+    df_norm = pd.read_sql_query(
+        "SELECT * FROM shipments ORDER BY timestamp;",
+        conn
+    )
+    # fetching original log data
+    df_logs = pd.read_sql_query(
+        "SELECT timestamp, severity, thread, source, log_message FROM logs_raw ORDER BY timestamp;",
+        conn
+    )
+    conn.close()
+    return df_norm, df_logs
+
+df_norm, df_logs = SQLite_source()
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # first data frame (table: shipments) as the background raw data from the dashboard
+# Filter
+filter_event = ["ALL"] + sorted(df_norm["event"].unique())
+filter_station = ["ALL"] + sorted(df_norm["station"].unique(), key=str)
+filter_boxbarcode = ["ALL"] + sorted(df_norm["box_barcode"].unique())
+
+col2, col3, col4, col5 = st.columns([4,1.5,1,1])
+with col2:
+    st.markdown(
+        "##### <span style='color:black; text-decoration:underline; font-weight:bold;'>Normalized dashboard raw data</span>"
+        + " - - → <span style='font-size:0.8em; font-weight:normal; font-style:italic;'>unique shipments line by line</span>",
+        unsafe_allow_html=True)
+with col3:
+    col_event = st.selectbox("Events:",options=filter_event)
+with col4:
+    col_station = st.selectbox("Stations:",options=filter_station)
+with col5:
+    col_boxbarcode = st.selectbox("Boxbarcode:",options=filter_boxbarcode)
+
+# Filter start
+df_filtered = df_norm.copy()
+
+if col_event != "ALL":
+    df_filtered = df_filtered[df_filtered["event"] == col_event]
+if col_station != "ALL":
+    df_filtered = df_filtered[df_filtered["station"] == col_station]
+if col_boxbarcode != "ALL":
+    df_filtered = df_filtered[df_filtered["box_barcode"] == col_boxbarcode]
+st.dataframe(df_filtered)
+
+# # # Data Download: DataFrame switch to csv
+csv = df_filtered.to_csv(index=False).encode("utf-8")
+
+st.download_button(
+    label="Download CSV",
+    data=csv,
+    file_name="packagingline_download_normalized.csv",
+    mime="text/csv"
+)
+
+st.divider()
+st.markdown("<br>", unsafe_allow_html=True)
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # second data frame showing original log data from table: logs_raw
+col1, col2, col3 = st.columns([2,1,2])
+with col1:
+    st.markdown(
+        "##### <span style='color:black; text-decoration:underline; font-weight:bold;'>Original source log data</span>"
+        + " - - → <span style='font-size:0.8em; font-weight:normal; font-style:italic;'>original log data</span>",
+        unsafe_allow_html=True)
+with col3:
+    search_text = st.text_input("search in '**log message**' on words/snippets/keywords etc. + enter:")
+    df_filtered_logs = df_logs
+
+    if search_text:
+        df_filtered_logs = df_filtered_logs[
+            df_filtered_logs["log_message"].astype(str).str.contains(search_text, case=False, na=False, regex=False)
+        ]
+st.dataframe(df_filtered_logs)
+
+# # # Data Download: DataFrame switch to csv
+csv = df_filtered_logs.to_csv(index=False).encode("utf-8")
+
+st.download_button(
+    label="Download Logs CSV",
+    data=csv,
+    file_name="packagingline_download_logdata.csv",
+    mime="text/csv"
+)

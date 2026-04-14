@@ -9,7 +9,7 @@ st.write("Browse portal content")
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 pages = {
-    "Dashboard": ("Analyse KPIs charts Trends", "follow this link", "dashboard/dashboard_main.py"),
+    "Dashboard": ("Analyse KPIs charts Trends Dashboard", "follow this link", "dashboard/dashboard_main.py"),
     "PackgLineMatrix": ("matrix overall consolidated", "follow this link", "dashboard/PackingLineMatrix.py"),
     "DataMgmt": ("data up down load investigate", "follow this link", "dashboard/data_mgmt.py"),
     "Insights": ("insight support questions unclear understanding description explanation explain describe", "follow this link", "useful/insight.py"),
@@ -36,7 +36,7 @@ if query:
 
     if results:
         for name, output_text, path in results:
-            st.page_link(path, label=f"Result: {name}")
+            st.page_link(path, label=f"**Link**: {name}")
     else:
         st.info("No matching results found.")
 

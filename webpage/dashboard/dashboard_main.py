@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 
 st.set_page_config(page_title="MLN | Dashboard", layout="wide", initial_sidebar_state="expanded")
 
@@ -9,6 +8,7 @@ st.markdown("<u>Dashboard & Data ▪ Dashboard</u>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns([3,2,1])
 with col1:
     st.markdown("# **Dashboard**")
+    st.markdown("#### **for Package Line Leadership**")
     st.write("KPI's & Statistics for Packaging Line Controlling")
 with col2:
     st.write("")
@@ -21,7 +21,11 @@ with col3:
         index=default_index
     )
 
-st.write("")
+st.markdown("<br>", unsafe_allow_html=True)
+
+# # # loading data from cache
+#df_normalized = SQLite_source()
+
 
 # # # KPI Section
 with st.container():
@@ -71,12 +75,17 @@ with st.container():
 st.write("")
 col1, col2 = st.columns([1,6])
 with col1:
-    st.write("**Recommendation for action:**")
+    st.markdown(
+        "<span style='color:red;  font-size:15px; font-weight:bold;'>Recommendation for action:</span>",
+        unsafe_allow_html=True)
 with col2:
     st.write("The conveyer speed could be problematic, please check")
-st.write("**NOTE:** *Action items will be displayed by priority starting with highest. After resolve please make sure to reset the error log on machine control panel !*")
+
+st.markdown(
+    "<span style='color:grey;  font-size:12px; '>**NOTE:** Action items will be displayed by priority starting with highest. After resolve please make sure to reset the error log on machine control panel !</span>",
+    unsafe_allow_html=True)
 st.divider()
 
 st.markdown(
-    "### <span style='color:red; text-decoration:underline; font-weight:bold;'>Page is under construction !</span>",
+    "### <span style='color:red; text-decoration:underline; font-weight:bold;'>Page development is currently in progress !</span>",
     unsafe_allow_html=True)

@@ -1,4 +1,5 @@
-matplotlib
 streamlit
+matplotlib
 pandas
-from PIL import Image
+sqlite3
+os

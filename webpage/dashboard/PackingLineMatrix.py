@@ -11,3 +11,4 @@ st.write("Packaging Line Summary")
 image_path = "./images/ShowUnderConstruction.png"
 image = Image.open(image_path)
 st.image(image, caption="Mein Bild", width=900)
+
