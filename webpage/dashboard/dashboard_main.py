@@ -1,4 +1,6 @@
 import streamlit as st
+from dashboard.kpi_chart_calculations import get_data
+from dashboard.kpi_chart_calculations import kpi_speedconveyor
 
 st.set_page_config(page_title="MLN | Dashboard", layout="wide", initial_sidebar_state="expanded")
 
@@ -23,9 +25,11 @@ with col3:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# # # loading data from cache
-#df_normalized = SQLite_source()
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+df_norm, df_logs = get_data()
+kpi_spd, kpi_spd_prev, kpi_chart = kpi_speedconveyor(df_norm)
 
+st.write(kpi_spd)
 
 # # # KPI Section
 with st.container():
@@ -85,6 +89,7 @@ st.markdown(
     "<span style='color:grey;  font-size:12px; '>**NOTE:** Action items will be displayed by priority starting with highest. After resolve please make sure to reset the error log on machine control panel !</span>",
     unsafe_allow_html=True)
 st.divider()
+
 
 st.markdown(
     "### <span style='color:red; text-decoration:underline; font-weight:bold;'>Page development is currently in progress !</span>",

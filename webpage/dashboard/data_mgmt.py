@@ -1,7 +1,7 @@
 import streamlit as st
+from dashboard.kpi_chart_calculations import get_data
 import sqlite3
 import pandas as pd
-import os
 
 st.set_page_config(page_title="MLN | Data-Mgmt", layout="wide", initial_sidebar_state="expanded")
 
@@ -12,25 +12,7 @@ st.write("View, manage and download data")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# # # fetch data from SQLite database for the 2 tables: logs_raw, shipments
-@st.cache_data
-def SQLite_source():
-    conn = sqlite3.connect("label_machine.db")
-
-    # fetching normalized data
-    df_norm = pd.read_sql_query(
-        "SELECT * FROM shipments ORDER BY timestamp;",
-        conn
-    )
-    # fetching original log data
-    df_logs = pd.read_sql_query(
-        "SELECT timestamp, severity, thread, source, log_message FROM logs_raw ORDER BY timestamp;",
-        conn
-    )
-    conn.close()
-    return df_norm, df_logs
-
-df_norm, df_logs = SQLite_source()
+df_norm, df_logs = get_data()
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # first data frame (table: shipments) as the background raw data from the dashboard
@@ -102,3 +84,4 @@ st.download_button(
     file_name="packagingline_download_logdata.csv",
     mime="text/csv"
 )
+
