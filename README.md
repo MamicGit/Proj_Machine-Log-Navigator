@@ -11,7 +11,7 @@ a web-based dashboard based on the log data of a parcel shipping label printer f
 a machinelearning modell for the purpose of reducing package-kickouts for manually check of content, focusing on too many items in package or too less, and increasing of probability to detect those issues in packages (increase of QA-productivity and increase of customer experience by reducing package issues) 
 <br></br>
 
-Access the Webpage-Dashboard *(Amazon EC2 Webservice)*: 
+<b>Access the Webpage-Portal *(Amazon EC2 Webservice)*:</b> 
 <br><b>NOTE:</b> No Risk! Accept the use of an insecure connection in the browser's warning message.
 
 <br>Link: [MachineLogNavigator](http://54.225.90.74/) (for PW please contact ocram-handwerker@web.de)
