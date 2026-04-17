@@ -13,7 +13,10 @@ a machinelearning modell for the purpose of reducing package-kickouts for manual
 
 Access the Webpage-Dashboard *(Amazon EC2 Webservice)*: 
 <br><b>NOTE:</b> No Risk! Accept the use of an insecure connection in the browser's warning message.
-<br>Link: [MachineLogNavigator](http://54.225.90.74/) (for PW please contact ocram-handwerker@web.de) - or use as alternative:
+
+<br>Link: [MachineLogNavigator](http://54.225.90.74/) (for PW please contact ocram-handwerker@web.de)
+
+<b>or use the following link instead:</b>
 <br>Additional-Link: [MachineLogNavigator](https://dsimlnappio-dsi-finalproject.streamlit.app/data_mgmt)
 
 <br><br><br>
