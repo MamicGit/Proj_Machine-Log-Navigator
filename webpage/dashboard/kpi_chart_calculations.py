@@ -52,12 +52,10 @@ def kpi_speedconveyor(df_norm):
     df_agg["mean_last_6"] = df_agg["line_speed_mps"].rolling(window=6).mean().round(2).fillna(0)
     # creation of final data: chart data, KPI_speed and KPI_speed_prev
     df_chart = df_agg[["timestamp_5min", "mean_last_6"]].tail(12)
-    KPI_speed = df_agg["mean_last_6"].iloc[-1]
-    KPI_speed_prev = df_agg["mean_last_6"].iloc[-2]
 
-    return KPI_speed,KPI_speed_prev,df_chart
+    return df_chart
 
-kpi_spd, kpi_spd_prev, kpi_chart = kpi_speedconveyor(df_norm)
+kpi_chart = kpi_speedconveyor(df_norm)
 
 print(kpi_chart)
 

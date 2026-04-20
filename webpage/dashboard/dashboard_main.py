@@ -31,7 +31,7 @@ st.divider()
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # fetching dataframes from kpi_chart_calculations
 df_norm, df_logs = get_data()
-kpi_spd, kpi_spd_prev, kpi_chart = kpi_speedconveyor(df_norm)
+kpi_chart = kpi_speedconveyor(df_norm)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -62,7 +62,7 @@ with st.container():
         st.write(status)
 
     with col3:
-        st.metric("Print Head 1", "99.5 %", "99.2 %")
+        st.metric("Print Head 1", "91.5 %", "99.2 %")
         f"🟢 OK"
 
     with col4:
