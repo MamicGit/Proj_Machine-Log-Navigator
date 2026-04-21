@@ -11,7 +11,7 @@ st.markdown(
     """
     ######
     <span style='color:blue;'>
-    <b>Yeaaaa:</b><br>
+    <b>first warm words:</b><br>
     At the heart of this three-person team project are training sessions in Python, EDA, ML, AWS, Streamlit, GitHub, Excel and more,<br> 
     while ensuring the experience remains engaging and enjoyable throughout!<br>
     <br>Thanks a lot to <b><a href="https://data-science-institute.de/" target="_blank">DSI-Team</a></b> for their great six-month training program!<br>
@@ -25,17 +25,17 @@ st.divider()
 st.subheader("**Project Team**")
 var_teammember = randint(0,5)
 if var_teammember == 0:
-    team_mate = "Marco M.  |  Michael S.  |  Mohammad E."
+    team_mate = "Marco M.  |  Michael S.  |  Mohamad E."
 elif var_teammember == 1:
-    team_mate = "Marco M.  |  Mohammad E.  |  Michael S."
+    team_mate = "Marco M.  |  Mohamad E.  |  Michael S."
 elif var_teammember == 2:
-    team_mate = "Mohammad E.  |  Marco M.  |  Michael S."
+    team_mate = "Mohamad E.  |  Marco M.  |  Michael S."
 elif var_teammember == 3:
-    team_mate = "Mohammad E.  |  Michael S.  |  Marco M."
+    team_mate = "Mohamad E.  |  Michael S.  |  Marco M."
 elif var_teammember == 4:
-    team_mate = "Michael S.  |  Mohammad E.  |  Marco M."
+    team_mate = "Michael S.  |  Mohamad E.  |  Marco M."
 else:
-    team_mate = "Michael S.  |  Marco M.  |  Mohammad E."
+    team_mate = "Michael S.  |  Marco M.  |  Mohamad E."
 st.write(team_mate)
 st.write("DSI Study Nov 2025 - Apr 2026")
 

@@ -20,3 +20,6 @@ df = pd.DataFrame({
 
 st.dataframe(df, hide_index=True)
 
+st.markdown(
+    "<span style='color:grey;  font-size:12px; '>**NOTE:** This page is created solely for illustrative purposes !</span>",
+    unsafe_allow_html=True)
