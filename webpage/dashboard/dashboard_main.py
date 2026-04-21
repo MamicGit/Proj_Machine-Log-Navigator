@@ -16,16 +16,23 @@ with col1:
     st.markdown("#### **for Package Line Leadership**")
     st.write("KPI's & Statistics for Packaging Line Controlling")
 with col2:
-    zeit = st.selectbox("**Time of Day** \n\n(*for Presentation*)", ["03:05", "13:35", "15:15", "23:59"])
+    zeit = st.selectbox("**Time of Day** \n\n:red[(*for Presentation*)]", ["03:05", "13:35", "15:15", "23:59"])
     st.session_state["filter_time"] = zeit
 with col3:
-    options = ["SLAM-ALL", "SLAM01", "SLAM02", "SLAM03", "SLAM04", "SLAM05", "SLAM06", "SLAM07", "SLAM08", "....."]
-    default_index = 0
+    options = ["SLAM01", "SLAM02", "SLAM03", "SLAM04", "SLAM05", "SLAM06", "SLAM07", "SLAM08", "....."]
+    default_index = 4
     option = st.selectbox(
         label="**Select Packaging Line Station** \n\n(*SLAM-STATION*)",
         options=options,
         index=default_index
     )
+
+if option != "SLAM05":
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.subheader(":red[Access denied (!)]")
+    st.write("Page content requires specific permissions for respective managers.")
+    st.write("**please cut a ticket using → feature request → permission request !**")
+    st.stop()
 
 st.divider()
 
@@ -73,7 +80,7 @@ with st.container():
         else:
             status_stp = f"🟢 no risk"
 
-        st.metric("**Conveyer stops** (2 hours rolled)", f"{count_2h} stops", delta=f"{count_curr} (last hour)", delta_color="off")
+        st.metric("**Conveyer stops** (2 hours rolled)", f"{count_2h} stop(s)", delta=f"{count_curr} (last hour)", delta_color="off")
         st.write(status_stp)
 
     with col4:  # Toner status print head
@@ -109,12 +116,13 @@ st.markdown("""<hr style="border-top: 3px double #bbb; border-bottom: none;"><br
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # chart Section
-col1, col2, col3 = st.columns([1,1,1])
+col1, col2, col3 = st.columns([2,0.5,2])
 
 with col1:
     # Plot erstellen
     fig, ax = plt.subplots()
     ax.plot(kpi_chart["timestamp_5min"].dt.strftime("%H:%M"), kpi_chart["mean_last_6"], marker="+")
+    ax.tick_params(axis='x', labelsize=8)
 
     # 👇 Y-axis best praxis for smooth line: min = 3 % below min, max = 2.4 as machine speed limit
     y_min = kpi_chart["mean_last_6"].min() - kpi_chart["mean_last_6"].min() * 0.03

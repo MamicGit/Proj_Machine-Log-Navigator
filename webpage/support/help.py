@@ -21,6 +21,7 @@ with col1:
         "Data Management": "Upload / Download Data, inspect raw data",
         "Site Search": "This page :wink:",
         "Insights": "The Insights page provides some important information about specific meanings of packaging line components.",
+        "Bugreport": "Report a bug using the ticket system.",
         "Feature Request": "Requesting the addition of a feature to enhance user experience and functionality.",
         "KPI": "KPI stands for 'Key Performance Indicator' and refers to measurable values that assess the success or progress of an organization or project.\nThey help track performance and inform strategic decisions.",
         "Other": "Since this type of '**help-section**' varies greatly depending on the company and specific use cases, its content here is generally temporary."

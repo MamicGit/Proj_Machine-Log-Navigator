@@ -13,7 +13,7 @@ with col1:
     with in_form:
         st.subheader("Request")
         with st.form("form_dummy"):
-            options = ["- click here - select the most appropriate category -", "new feature in website", "new KPI is needed", "new chart is needed", "data request"]
+            options = ["- click here - select the most appropriate category -", "new feature in website", "new KPI is needed", "new chart is needed", "data request", "permission request"]
             default_index = 0
             option = st.selectbox(
                 label="*Select Category:*",
