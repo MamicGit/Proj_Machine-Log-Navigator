@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
 from dashboard.kpi_chart_calculations import get_data
 from dashboard.kpi_chart_calculations import kpi_speedconveyor
