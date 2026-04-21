@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from dashboard.kpi_chart_calculations import get_data
 from dashboard.kpi_chart_calculations import kpi_speedconveyor
 from dashboard.kpi_chart_calculations import line_stops_rolled
+from dashboard.kpi_chart_calculations import kickout_data
 
 st.set_page_config(page_title="MLN | Dashboard", layout="wide", initial_sidebar_state="expanded")
 
@@ -42,6 +43,7 @@ st.divider()
 df_norm, df_logs = get_data(zeit)
 kpi_chart = kpi_speedconveyor(df_norm)
 line_stops, count_2h, count_lh, count_curr = line_stops_rolled(df_norm)
+ko_data = kickout_data(df_norm)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # KPI Section
@@ -144,4 +146,5 @@ with col1:
 
     # In Streamlit anzeigen
     st.pyplot(fig)
-
+with col3:
+    st.write(ko_data)

@@ -7,7 +7,7 @@ from datetime import datetime as dt
 ### shipment_id, timestamp, severity, thread, source, event, station, box_barcode, articles, exp_weight_kg, act_weight_kg, tare_weight_kg, product_weight_kg
 ### abs_weight_diff, print_quality_pct, line_speed_mps, slam, iso_grade, pckg_problem_found, weight_diff, weight_diff_ratio, distance_to_threshold, is_kot
 
-filter_time = st.session_state.get("filter_time")  # Default optional
+filter_time = st.session_state.get("filter_time", "23:59")  # Default optional
 
 # presentation: 03:00, 13:35, 15:15, 23:59
 def SQLite_source(filter_time):
@@ -60,8 +60,6 @@ def kpi_speedconveyor(df_norm):
 
     return df_chart
 
-kpi_chart = kpi_speedconveyor(df_norm)
-
 
 # package queue conflicts
 def line_stops_rolled(df_norm):
@@ -80,6 +78,26 @@ def line_stops_rolled(df_norm):
 
     return df_2h_rolled, count_total, count_last_hour, count_act_hour
 
-line_stops, count_2h, count_lh, count_curr = line_stops_rolled(df_norm)
 
+# package queue conflicts
+def kickout_data(df_norm):
+    df_norm_ko = df_norm[["timestamp", "shipment_id", "is_kot", "pckg_problem_found"]].copy()
+    df_norm_ko["pckg_problem_found"] = pd.to_numeric(df_norm_ko["pckg_problem_found"].replace({"N": "0", "Y": "1", None: "0"}))
+    df_norm_ko["timestamp"] = pd.to_datetime(df_norm["timestamp"])
+    now = df_norm_ko["timestamp"].max()
+    df_4hours = now - pd.Timedelta(hours=4)
+
+    # limit and create a new dataframe to just last 4 hours based on the drop down field in page 'dashboard'
+    df_4h_rolled = df_norm_ko[df_norm_ko["timestamp"] >= df_4hours].copy().reset_index(drop=True)
+
+    # add new column for 15min periods
+    df_4h_rolled["timestamp_15min"] = df_4h_rolled["timestamp"].dt.floor("15min")
+
+    # create a new dataframe including 15min-period, numbers of shipments processed, sum of kickouts, sum of founds
+    df_agg = df_4h_rolled.assign(timestamp_15min=df_4h_rolled["timestamp"].dt.floor("15min")) \
+        .groupby("timestamp_15min", as_index=False) \
+        .agg(row_count=("shipment_id", "count"),
+             is_kot=("is_kot", "sum"),
+             pckg_problem_found=("pckg_problem_found", "sum"))
+    return df_agg
 

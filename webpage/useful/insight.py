@@ -6,20 +6,7 @@ st.markdown("<u>Useful ▪ Insights</u>", unsafe_allow_html=True)
 st.markdown("# **Insights**")
 st.write("Insights in Data Logics & Configs")
 
-st.markdown(
-    """
-    ######
-    <span style='color:blue;'>
-    <b>NOTE:</b><br>
-    At the heart of the 3-persons-team-project are training sessions in Python, EDA, ML, AWS, Streamlit, GitHub, and more,<br> 
-    - while ensuring that the experience remains engaging and enjoyable throughout!<br>
-    Thanks a lot to <b>DSI-Team</b> for their great six-month training program!<br>
-    </span>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 st.markdown(
     "##### <span style='color:darkred; text-decoration:underline; font-weight:bold;'>Conveyor Speed</span>",
