@@ -12,7 +12,7 @@ pages = {
     "Dashboard": ("Analyse KPIs charts Trends Dashboard", "follow this link", "dashboard/dashboard_main.py"),
     "PackgLineMatrix": ("matrix overall consolidated", "follow this link", "dashboard/PackingLineMatrix.py"),
     "DataMgmt": ("data up down load investigate", "follow this link", "dashboard/data_mgmt.py"),
-    "Insights": ("insight support questions unclear understanding description explanation explain describe", "follow this link", "useful/insight.py"),
+    "Insights": ("insight KPIs charts support questions unclear understanding description explanation explain describe", "follow this link", "useful/insight.py"),
     "Bugs": ("problems ticket bugs issues error trouble", "follow this link", "support/bugs.py"),
     "Features": ("improvements ticket feature idea support", "follow this link", "support/features.py"),
     "Help": ("help worried concerned", "follow this link", "support/help.py")

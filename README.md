@@ -18,6 +18,10 @@ a machinelearning modell for the purpose of reducing package-kickouts for manual
 
 <b>or use the following link instead:</b>
 <br>Additional-Link: [MachineLogNavigator](https://dsimlnappio-dsi-finalproject.streamlit.app/data_mgmt)
+<br><br><b>or alternatively local:</b>
+<br>1) download the folder 'webpage', 
+<br>2) open a CMD for this folder, 
+<br>3) start 'streamlit run mainpage.py'
 
 <br><br><br>
 April 2026 .

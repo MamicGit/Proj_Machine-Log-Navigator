@@ -12,7 +12,8 @@ st.write("View, manage and download data")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-df_norm, df_logs = get_data()
+filter_time = st.session_state.get("filter_time", "23:59")  # Default optional
+df_norm, df_logs = get_data(filter_time)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # first data frame (table: shipments) as the background raw data from the dashboard

@@ -1,3 +1,4 @@
+import streamlit as st
 import sqlite3
 import pandas as pd
 import os
@@ -6,17 +7,20 @@ from datetime import datetime as dt
 ### shipment_id, timestamp, severity, thread, source, event, station, box_barcode, articles, exp_weight_kg, act_weight_kg, tare_weight_kg, product_weight_kg
 ### abs_weight_diff, print_quality_pct, line_speed_mps, slam, iso_grade, pckg_problem_found, weight_diff, weight_diff_ratio, distance_to_threshold, is_kot
 
-def SQLite_source():
+filter_time = st.session_state.get("filter_time")  # Default optional
+
+# presentation: 03:00, 13:35, 15:15, 23:59
+def SQLite_source(filter_time):
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(base_dir, "label_machine_neu.db")
+    db_path = os.path.join(base_dir, "label_machine.db")
 
     conn = sqlite3.connect(db_path)
-
     # fetching normalized data
     df_norm = pd.read_sql_query("SELECT shipment_id, strftime('%Y-%m-%d %H:%M:%S', timestamp) as timestamp, severity,thread, source, event, "
     "station, box_barcode, articles, exp_weight_kg, act_weight_kg, tare_weight_kg, product_weight_kg, abs_weight_diff, print_quality_pct, "
-    "line_speed_mps, slam, iso_grade, pckg_problem_found, weight_diff, weight_diff_ratio, distance_to_threshold, is_kot FROM shipments;",
-        conn
+    "line_speed_mps, slam, iso_grade, pckg_problem_found, weight_diff, weight_diff_ratio, "
+    "distance_to_threshold, is_kot, stop_after, stop_reason_after FROM shipments WHERE strftime('%H:%M', timestamp) < ?",
+        conn, params=(filter_time,)
     )
 
     # fetching original log data
@@ -27,22 +31,23 @@ def SQLite_source():
     conn.close()
     return df_norm, df_logs
 
-def get_data():
-    return SQLite_source()
+def get_data(filter_time):
+    return SQLite_source(filter_time)
 
-df_norm, df_logs = get_data()
+df_norm, df_logs = get_data(filter_time)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # START ANALYSIS
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# Conveyor as risk indicator for productivity and package queue conflicts
 def kpi_speedconveyor(df_norm):
-    # # # produce of KPI 'conveyor speed'
+    # # # produce of relevant dataframe for 'conveyor speed'
     df_norm = df_norm[["timestamp","line_speed_mps"]]
     df_norm = df_norm.dropna(subset=["line_speed_mps"])
     df_norm["timestamp"] = pd.to_datetime(df_norm["timestamp"])
     now = df_norm["timestamp"].max()
-    one_hour_ago = now - pd.Timedelta(hours=2)
+    one_hour_ago = now - pd.Timedelta(hours=3)
     # Create of copy for decoupled further calculation
     df_last_hour = df_norm[df_norm["timestamp"] >= one_hour_ago].copy()
     df_last_hour["timestamp_5min"] = df_last_hour["timestamp"].dt.floor("5min")
@@ -51,11 +56,30 @@ def kpi_speedconveyor(df_norm):
     df_agg = df_agg.sort_values(by="timestamp_5min").reset_index(drop=True)
     df_agg["mean_last_6"] = df_agg["line_speed_mps"].rolling(window=6).mean().round(2).fillna(0)
     # creation of final data: chart data, KPI_speed and KPI_speed_prev
-    df_chart = df_agg[["timestamp_5min", "mean_last_6"]].tail(12)
+    df_chart = df_agg[["timestamp_5min", "mean_last_6"]].tail(24)   # view only the last hour
 
     return df_chart
 
 kpi_chart = kpi_speedconveyor(df_norm)
 
-print(kpi_chart)
+
+# package queue conflicts
+def line_stops_rolled(df_norm):
+    df_norm_time = pd.to_datetime(df_norm["timestamp"])
+    now = df_norm_time.max()
+    df_1hour = now - pd.Timedelta(hours=1)
+    df_2hours = now - pd.Timedelta(hours=2)
+
+    pckg_conflicts = df_norm[df_norm["stop_reason_after"] == "Package queue conflicts"][["timestamp","stop_after"]]
+    pckg_conflicts["timestamp"] = pd.to_datetime(pckg_conflicts["timestamp"])
+    df_2h_rolled = pckg_conflicts[pckg_conflicts["timestamp"] >= df_2hours].copy().reset_index(drop=True)
+
+    count_total = df_2h_rolled["stop_after"].sum()
+    count_last_hour = (df_2h_rolled["timestamp"] < df_1hour).sum()
+    count_act_hour = (df_2h_rolled["timestamp"] >= df_1hour).sum()
+
+    return df_2h_rolled, count_total, count_last_hour, count_act_hour
+
+line_stops, count_2h, count_lh, count_curr = line_stops_rolled(df_norm)
+
 
