@@ -42,7 +42,52 @@ st.write("DSI Study Nov 2025 - Apr 2026")
 st.divider()
 
 st.subheader("**Project Challanges**")
-st.write("**Data engineering & EDA by Mohamad:** XYZ...")
-st.write("**Machine Learning & Data Evaluations by Michael S.:** XYZ...")
-st.write("**Webportal & KPI/Statistics by Marco M.:** XYZ")
+st.write("**Data engineering & EDA** by Mohamad:")
+st.markdown(
+    """
+    <span style='color:grey;'>
+    My challenge ...<br> 
+    ....<br>
+    ...
+    </span>
+    """,
+    unsafe_allow_html=True
+)
+toggle_me = st.toggle("more details Mohamad")
+if toggle_me:
+    st.write("if necessary, on this place I'll provide more details.")
+
+
+st.write("")
+st.write("**Machine Learning & Data Evaluations** by Michael S.:")
+st.markdown(
+    """
+    <span style='color:grey;'>
+    My challenge ...<br> 
+    ....<br>
+    ...
+    <br></span>
+    """,
+    unsafe_allow_html=True
+)
+toggle_ms = st.toggle("more details Michael")
+if toggle_ms:
+    st.write("if necessary, on this place I'll provide more details.")
+
+st.write("")
+st.write("**Webportal & KPI/Statistics** by Marco M.:")
+st.markdown(
+    """
+    <span style='color:grey;'>
+    I personally found it challenging to configure the AWS server in a secure and project-optimal way while keeping costs as low as possible (EC2, Nginx, static IP).<br>
+    In addition, it was challenging as well to identify the right data configuration for the KPIs in order to present them in a clear and meaningful way, <br>
+    and—combined with the appropriate trend charts—to provide the highest possible level of process transparency.
+    </span>
+    """,
+    unsafe_allow_html=True
+)
+toggle_mm = st.toggle("more details Marco")
+if toggle_mm:
+    st.write("if necessary, on this place I'll provide more details.")
+
 st.divider()

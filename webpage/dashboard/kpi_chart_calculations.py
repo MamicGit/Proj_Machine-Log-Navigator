@@ -25,8 +25,9 @@ def SQLite_source(filter_time):
 
     # fetching original log data
     df_logs = pd.read_sql_query(
-        "SELECT strftime('%Y-%m-%d %H:%M:%S', timestamp) as timestamp, severity, thread, source, log_message, shipment_id FROM logs_raw;",
-        conn
+        "SELECT strftime('%Y-%m-%d %H:%M:%S', timestamp) as timestamp, severity, thread, source, log_message, "
+        "shipment_id FROM logs_raw WHERE strftime('%H:%M', timestamp) < ?",
+        conn, params=(filter_time,)
     )
     conn.close()
     return df_norm, df_logs
@@ -61,7 +62,7 @@ def kpi_speedconveyor(df_norm):
     return df_chart
 
 
-# package queue conflicts
+# line stops - package queue conflicts
 def line_stops_rolled(df_norm):
     df_norm_time = pd.to_datetime(df_norm["timestamp"])
     now = df_norm_time.max()
@@ -79,7 +80,7 @@ def line_stops_rolled(df_norm):
     return df_2h_rolled, count_total, count_last_hour, count_act_hour
 
 
-# package queue conflicts
+# kickout rates
 def kickout_data(df_norm):
     df_norm_ko = df_norm[["timestamp", "shipment_id", "is_kot", "pckg_problem_found"]].copy()
     df_norm_ko["pckg_problem_found"] = pd.to_numeric(df_norm_ko["pckg_problem_found"].replace({"N": "0", "Y": "1", None: "0"}))
@@ -91,13 +92,15 @@ def kickout_data(df_norm):
     df_4h_rolled = df_norm_ko[df_norm_ko["timestamp"] >= df_4hours].copy().reset_index(drop=True)
 
     # add new column for 15min periods
-    df_4h_rolled["timestamp_15min"] = df_4h_rolled["timestamp"].dt.floor("15min")
+    df_4h_rolled["timestamp_30min"] = df_4h_rolled["timestamp"].dt.floor("30min")
 
-    # create a new dataframe including 15min-period, numbers of shipments processed, sum of kickouts, sum of founds
-    df_agg = df_4h_rolled.assign(timestamp_15min=df_4h_rolled["timestamp"].dt.floor("15min")) \
-        .groupby("timestamp_15min", as_index=False) \
-        .agg(row_count=("shipment_id", "count"),
-             is_kot=("is_kot", "sum"),
-             pckg_problem_found=("pckg_problem_found", "sum"))
+    # create a new dataframe include 15min-period, numbers of shipments processed, sum of kickouts, sum of founds
+    df_agg = df_4h_rolled.assign(timestamp_15min=df_4h_rolled["timestamp"].dt.floor("30min")) \
+        .groupby("timestamp_30min", as_index=False) \
+        .agg(shipvolume=("shipment_id", "count"),
+             kickouts=("is_kot", "sum"),
+             founds=("pckg_problem_found", "sum"))
+    df_agg["ko_rate_perc"] = round(df_agg["kickouts"] / df_agg["shipvolume"] * 100, 1)
+    df_agg["found_rate_perc"] = round(df_agg["founds"] / df_agg["shipvolume"] * 100, 1)
     return df_agg
 
