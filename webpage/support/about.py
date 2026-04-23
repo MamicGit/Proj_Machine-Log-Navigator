@@ -12,7 +12,7 @@ st.markdown(
     ######
     <span style='color:blue;'>
     <b>first warm words:</b><br>
-    At the heart of this three-person team project are training sessions in Scrum, Python, EDA, ML, AWS, Streamlit, GitHub, Excel and more,<br> 
+    At the heart of this three-person team project are training sessions in Scrum, Python, ETL, EDA, SQLite, ML, AWS EC2/S3, Elastic IP, Streamlit, GitHub, Excel ect.,<br> 
     while ensuring the experience remains engaging and enjoyable throughout!<br>
     <br>Thanks a lot to <b><a href="https://data-science-institute.de/" target="_blank">DSI-Team</a></b> for their great six-month training program!<br>
     </span>
@@ -39,55 +39,52 @@ else:
 st.write(team_mate)
 st.write("DSI Study Nov 2025 - Apr 2026")
 
-st.divider()
+st.markdown("""<hr style="border-top: 3px double #bbb; border-bottom: none;"><br>""",unsafe_allow_html=True)
 
-st.subheader("**Project Challanges**")
+st.subheader("**Project Responsibilities**")
 st.write("**Data engineering & EDA** by Mohamad:")
-st.markdown(
-    """
-    <span style='color:grey;'>
-    My challenge ...<br> 
-    ....<br>
-    ...
-    </span>
-    """,
-    unsafe_allow_html=True
-)
-toggle_me = st.toggle("more details Mohamad")
+toggle_me = st.toggle("Challenges - Mohamad")
 if toggle_me:
-    st.write("if necessary, on this place I'll provide more details.")
-
+    st.markdown(
+        """
+        <span style='color:grey;'>
+        My challenge ...<br> 
+        ....<br>
+        ...
+        </span>
+        """,
+        unsafe_allow_html=True
+    )
+st.divider()
 
 st.write("")
 st.write("**Machine Learning & Data Evaluations** by Michael S.:")
-st.markdown(
-    """
-    <span style='color:grey;'>
-    My challenge ...<br> 
-    ....<br>
-    ...
-    <br></span>
-    """,
-    unsafe_allow_html=True
-)
-toggle_ms = st.toggle("more details Michael")
+toggle_ms = st.toggle("Challenges - Michael")
 if toggle_ms:
-    st.write("if necessary, on this place I'll provide more details.")
+    st.markdown(
+        """
+        <span style='color:grey;'>
+        My challenge ...<br> 
+        ....<br>
+        ...
+        <br></span>
+        """,
+        unsafe_allow_html=True
+    )
+st.divider()
 
 st.write("")
 st.write("**Webportal & KPI/Statistics** by Marco M.:")
-st.markdown(
-    """
-    <span style='color:grey;'>
-    I personally found it challenging to configure the AWS server in a secure and project-optimal way while keeping costs as low as possible (EC2, Nginx, static IP).<br>
-    In addition, it was challenging as well to identify the right data configuration for the KPIs in order to present them in a clear and meaningful way, <br>
-    and—combined with the appropriate trend charts—to provide the highest possible level of process transparency.
-    </span>
-    """,
-    unsafe_allow_html=True
-)
-toggle_mm = st.toggle("more details Marco")
+toggle_mm = st.toggle("Challenges - Marco")
 if toggle_mm:
-    st.write("if necessary, on this place I'll provide more details.")
-
+    st.markdown(
+        """
+        <span style='color:grey;'>
+        I personally found it challenging to configure the AWS server in a secure and project-optimal way while keeping costs as low as possible (EC2, Nginx, static IP).<br>
+        In addition, it was challenging as well to identify the right data configuration for the KPIs in order to present them in a clear and meaningful way, <br>
+        and—combined with the appropriate trend charts—to provide the highest possible level of process transparency.
+        </span>
+        """,
+        unsafe_allow_html=True
+    )
 st.divider()

@@ -38,7 +38,7 @@ if query:
         for name, output_text, path in results:
             st.page_link(path, label=f"**Link**: {name}")
     else:
-        st.info("No matching results found.")
+        st.info("No matching results found, try e.g. 'KPI'. This web search page is primarily intended as an illustrative example.")
 
 st.button("Reset search", on_click=reset_search)
 
