@@ -39,6 +39,22 @@ with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
              \n:red[ect...]\
              \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
 
+# showing expander for Logfile Generator
+with st.expander(":material/arrow_drop_down: :violet[**Logfile-Generator**]"):
+    col1, col2 = st.columns([1,1])
+    with col1:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "LogGeneratorA.PNG"
+        image = Image.open(img_path)
+        st.image(image, caption="by Marco M.", width=600)
+    with col2:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "LogGeneratorB.PNG"
+        image = Image.open(img_path)
+        st.image(image, caption="by Marco M.", width=600)
+
+    st.write("**Download Python-Code:** [Github](https://github.com/MamicGit/Proj_Machine-Log-Navigator/tree/main/Logfile_CustomerOrder_Generator)")
+
 # showing expander for ETL description
 with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,7 +74,7 @@ with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
 # showing expander for EDA description
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
-    img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
+    img_path = BASE_DIR / "images" / "PresentationEDA.png"
     image = Image.open(img_path)
     st.image(image, caption="by Mohamad E.", width=800)
 
