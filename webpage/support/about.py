@@ -12,7 +12,7 @@ st.markdown(
     ######
     <span style='color:blue;'>
     <b>first warm words:</b><br>
-    At the heart of this three-person team project are training sessions in Scrum, Python, ETL, EDA, SQLite, ML, AWS EC2/S3, Elastic IP, Streamlit, GitHub, Excel ect.,<br> 
+    At the heart of this three-person team project are training sessions in Scrum, Python, ETL, EDA, SQLite, ML, AWS EC2/S3/SES/Lambda, Elastic IP, Streamlit, GitHub, Excel ect.,<br> 
     while ensuring the experience remains engaging and enjoyable throughout!<br>
     <br>Thanks a lot to <b><a href="https://data-science-institute.de/" target="_blank">DSI-Team</a></b> for their great six-month training program!<br>
     </span>

@@ -19,8 +19,9 @@ st.markdown(
     unsafe_allow_html=True)
 
 with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
-    image_path = "./images/TheMachine.png"
-    image = Image.open(image_path)
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    img_path = BASE_DIR / "images" / "TheMachine.png"
+    image = Image.open(img_path)
     st.image(image, caption="Teams Project", width=800)
 
     st.markdown(
@@ -35,8 +36,9 @@ with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
              \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
 
 with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
-    image_path = "./images/Datenfluss_3.png"
-    image = Image.open(image_path)
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    img_path = BASE_DIR / "images" / "Datenfluss_3.png"
+    image = Image.open(img_path)
     st.image(image, caption="by Mohamad E.", width=800)
 
     st.markdown(
@@ -49,8 +51,9 @@ with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
              \n\n**The final dataset is stored in a SQLite database and serves as the foundation for further analysis and machine learning.**")
 
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
-    image_path = "./images/PicturePlaceholder.png"
-    image = Image.open(image_path)
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
+    image = Image.open(img_path)
     st.image(image, caption="by Mohamad E.", width=800)
 
     st.markdown(
@@ -66,8 +69,9 @@ with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
              \n\n**These findings help to better understand system behavior and provide a basis for targeted optimization measures.**")
 
 with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
-    image_path = "./images/PicturePlaceholder.png"
-    image = Image.open(image_path)
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
+    image = Image.open(img_path)
     st.image(image, caption="by Michael S.", width=800)
 
     st.markdown(
