@@ -4,6 +4,9 @@ from pathlib import Path
 
 st.set_page_config(page_title="MLN | Insights", layout="wide", initial_sidebar_state="expanded")
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # 3 lines Headers of page + dropdowns right side
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 st.markdown("<u>Useful ▪ Insights</u>", unsafe_allow_html=True)
 st.markdown("# **Insights**")
 st.write("Insights in Data Logics & Configs")
@@ -12,12 +15,13 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# # # Visualizations, Flow & SUmmary
+# # # Visualizations, Flow & Summary
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 st.markdown(
     "##### <span style='color:darkblue; font-weight:bold;'>Visualization, Flow & Summary</span>",
     unsafe_allow_html=True)
 
+# showing expander for Conveyor & Machine description
 with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
     img_path = BASE_DIR / "images" / "TheMachine.png"
@@ -35,6 +39,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
              \n:red[ect...]\
              \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
 
+# showing expander for ETL description
 with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
     img_path = BASE_DIR / "images" / "Datenfluss_3.png"
@@ -50,6 +55,7 @@ with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
              \nIn addition, a mapping logic is implemented to assign production stops to the corresponding previous shipment.\
              \n\n**The final dataset is stored in a SQLite database and serves as the foundation for further analysis and machine learning.**")
 
+# showing expander for EDA description
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
     img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
@@ -68,6 +74,7 @@ with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
              \nindicating that deviations in print quality can contribute to operational disruptions.\
              \n\n**These findings help to better understand system behavior and provide a basis for targeted optimization measures.**")
 
+# showing expander for ML description
 with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
     img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
@@ -87,6 +94,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
              \n...\
              \n\n**Result:**")
 
+# showing expander for Website-Portal & Configurations description
 with st.expander(":material/arrow_drop_down: :violet[**Website-Portal & Configurations**]"):
     BASE_DIR = Path(__file__).resolve().parent.parent
     img_path = BASE_DIR / "images" / "WebFlow.png"
@@ -114,6 +122,7 @@ st.markdown(
     "##### <span style='color:darkblue; font-weight:bold;'>Process Elements & KPIs</span>",
     unsafe_allow_html=True)
 
+# showing expander for description of Conveyor Speed + KPI details
 with st.expander(":material/arrow_drop_down: :red[**Conveyor Speed**]"):
     st.write("The packing line conveyor belt is divided into at least four independently running belts.\
              \nFor slam machine & label printer its a second smaller one. It directs the packages, which are fed to the machine at precisely equal intervals, for label processing!\
@@ -126,6 +135,7 @@ with st.expander(":material/arrow_drop_down: :red[**Conveyor Speed**]"):
              \n**LOGIC:** for each 5min time slot determine highest speed value (the one you find in the raw logs). On that numbers its calculating for ech 5-min-slot the moving average over last 30 minutes.\
              \n**In the end, it shows how often a sharp spike occurs within a 5-minute window, how high that spike is, and whether the technical team needs to reconfigure the conveyor belt!**")
 
+# showing expander for description of Machine Stops + KPI details
 with st.expander(":material/arrow_drop_down: :red[**Machine Stops**]"):
     st.write("Stop of conveyor and machine can have various reasons, such as 'Package queue conflicts', 'Toner Refill', 'Change of label material' and some more.\
              \nFor reason 'Package queue conflicts' its mostly based on uneven belt speed which leads into a auto-stop and the risk for package swicheroos!")
@@ -135,6 +145,7 @@ with st.expander(":material/arrow_drop_down: :red[**Machine Stops**]"):
     st.write("KPI number shows the amount of stops just for 'Package queue conflicts' during latest two hours rolled, and shows below of this the sum of stops for last hour for high transparency.\
              \nThe higher the KPI, the higher the risk for customer impact for Swicheroos. The action should be discussion with Slam-Operator and technical team to adapt conveyor belt configuration.")
 
+# showing expander for description of Print Quality + KPI details
 with st.expander(":material/arrow_drop_down: :red[**Print Quality**]"):
     st.write("Each packaging line typically has two label printers that draw the necessary ink from a single toner cartridge.\
              \nIt is not unusual for the two printers to have different print qualities!\

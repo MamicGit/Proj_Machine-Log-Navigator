@@ -2,12 +2,16 @@ import streamlit as st
 
 st.set_page_config(page_title="MLN | Search", layout="wide", initial_sidebar_state="expanded")
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # 3 lines Headers of page + dropdowns right side
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 st.markdown("<u>Useful ▪ Search</u>", unsafe_allow_html=True)
 st.markdown("# **Search the Webportal**")
 st.write("Browse portal content")
 
 st.markdown("<br><br>", unsafe_allow_html=True)
 
+# define of search results just for illustrate purposes. It can be automated using lists and hash tags
 pages = {
     "Dashboard": ("Analyse KPIs charts Trends Dashboard", "follow this link", "dashboard/dashboard_main.py"),
     "PackgLineMatrix": ("matrix overall consolidated", "follow this link", "dashboard/PackingLineMatrix.py"),
@@ -23,11 +27,10 @@ def reset_search():
 
 st.text_input("🔎 search for words/snippets/keywords etc. + enter", key="search_input")
 
+# iterate through all keywords located in variable pages, if found, show results on a button with link
 query = st.session_state.get("search_input", "").strip()
-
 if query:
     query = query.lower()
-
     results = []
 
     for name, (content, output_text, path) in pages.items():
@@ -40,5 +43,6 @@ if query:
     else:
         st.info("No matching results found, try e.g. 'KPI'. This web search page is primarily intended as an illustrative example.")
 
+# results of loop and button
 st.button("Reset search", on_click=reset_search)
 

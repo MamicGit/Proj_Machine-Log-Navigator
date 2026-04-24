@@ -2,14 +2,16 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 import os
-from datetime import datetime as dt
 
 ### shipment_id, timestamp, severity, thread, source, event, station, box_barcode, articles, exp_weight_kg, act_weight_kg, tare_weight_kg, product_weight_kg
 ### abs_weight_diff, print_quality_pct, line_speed_mps, slam, iso_grade, pckg_problem_found, weight_diff, weight_diff_ratio, distance_to_threshold, is_kot
 
 filter_time = st.session_state.get("filter_time", "23:59")  # Default optional
 
-# presentation: 03:00, 13:35, 15:15, 23:59
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# data query from SQLite
+# presentation: 03:05, 06:55, 13:35, 15:50, 23:59
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 def SQLite_source(filter_time):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(base_dir, "label_machine.db")
@@ -23,7 +25,7 @@ def SQLite_source(filter_time):
         conn, params=(filter_time,)
     )
 
-    # fetching original log data
+    # fetching original log raw data
     df_logs = pd.read_sql_query(
         "SELECT strftime('%Y-%m-%d %H:%M:%S', timestamp) as timestamp, severity, thread, source, log_message, "
         "shipment_id FROM logs_raw WHERE strftime('%H:%M', timestamp) < ?",
@@ -36,6 +38,7 @@ def get_data(filter_time):
     return SQLite_source(filter_time)
 
 df_norm, df_logs = get_data(filter_time)
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # START ANALYSIS
@@ -80,7 +83,7 @@ def line_stops_rolled(df_norm):
     return df_2h_rolled, count_total, count_last_hour, count_act_hour
 
 
-# kickout rates
+# kickout rates + package problem found rates
 def kickout_data(df_norm):
     df_norm_ko = df_norm[["timestamp", "shipment_id", "is_kot", "pckg_problem_found"]].copy()
     df_norm_ko["pckg_problem_found"] = pd.to_numeric(df_norm_ko["pckg_problem_found"].replace({"N": "0", "Y": "1", None: "0"}))

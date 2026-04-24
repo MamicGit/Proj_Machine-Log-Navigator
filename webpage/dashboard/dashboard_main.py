@@ -6,16 +6,19 @@ from dashboard.kpi_chart_calculations import line_stops_rolled
 from dashboard.kpi_chart_calculations import kickout_data
 
 st.set_page_config(page_title="MLN | Dashboard", layout="wide", initial_sidebar_state="expanded")
-
 st.markdown("<u>Dashboard & Data ▪ Dashboard</u>", unsafe_allow_html=True)
 
-# # # Dashboard header elements
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # 4 lines Headers of page + dropdowns right side
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 col1, col2, col3 = st.columns([3,0.5,1])
 with col1:
     st.markdown("# **Dashboard**")
     st.markdown("#### **for Package Line Leadership**")
     st.write("KPI's & Statistics for Packaging Line Controlling")
 with col2:
+    # temporary dropdown for presentation to simulate 5 times of a day
     zeit = st.selectbox("**Time of Day** \n\n:red[(*for Presentation*)]", ["03:05", "06:55", "13:35", "15:50", "23:59"])
     st.session_state["filter_time"] = zeit
 with col3:
@@ -27,6 +30,7 @@ with col3:
         index=default_index
     )
 
+# simplified hard stop of page when dropdown selection not SLAM05. In real live for each Slam needs to create dashboard data depending on selection
 if option != "SLAM05":
     st.markdown("<br><br>", unsafe_allow_html=True)
     st.subheader(":red[Access denied (!)]")
@@ -39,7 +43,6 @@ st.divider()
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # fetching dataframes from kpi_chart_calculations
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
 df_norm, df_logs = get_data(zeit)
 kpi_chart = kpi_speedconveyor(df_norm)
 line_stops, count_2h, count_lh, count_curr = line_stops_rolled(df_norm)
@@ -52,7 +55,7 @@ ko_data = kickout_data(df_norm)
 with (st.container()):
     col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
 
-    with col1:  # description of figures
+    with col1:  # description in general of figures
         st.write("")
         st.subheader("KPI's:")
         st.write("Controlling")
@@ -246,7 +249,7 @@ with col3:
     fig.patch.set_facecolor("#f7f5f5")
 
     ax.set_xlabel("time period 30 minutes")
-    ax.set_ylabel("kickout rate %")
+    ax.set_ylabel("problem found rate %")
     bar_value = ax.bar(x, y)
     ax.bar_label(bar_value, color="white", label_type='center', fmt='%.1f')
     ax.set_title("problem-found rate % (rolling 4 hours)",fontweight="bold",fontsize=12,pad=10)

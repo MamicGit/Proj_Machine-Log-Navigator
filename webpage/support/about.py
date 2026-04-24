@@ -3,10 +3,14 @@ from random import randint
 
 st.set_page_config(page_title="MLN | About", layout="wide", initial_sidebar_state="expanded")
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # 3 lines Headers of page + dropdowns right side
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 st.markdown("<u>Support ▪ About</u>", unsafe_allow_html=True)
 st.markdown("# **The Project**")
 st.write("Notes & Info's and Thanks")
 
+# note of thanks
 st.markdown(
     """
     ######
@@ -19,9 +23,9 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 st.divider()
 
+# is showing our team, name order randomly for each refresh of page
 st.subheader("**Project Team**")
 var_teammember = randint(0,5)
 if var_teammember == 0:
@@ -41,6 +45,7 @@ st.write("DSI Study Nov 2025 - Apr 2026")
 
 st.markdown("""<hr style="border-top: 3px double #bbb; border-bottom: none;"><br>""",unsafe_allow_html=True)
 
+# presentation Mohamad + info by toggle about project challenges
 st.subheader("**Project Responsibilities**")
 st.write("**Data engineering & EDA** by Mohamad:")
 toggle_me = st.toggle("Challenges - Mohamad")
@@ -57,6 +62,7 @@ if toggle_me:
     )
 st.divider()
 
+# presentation Michael + info by toggle about project challenges
 st.write("")
 st.write("**Machine Learning & Data Evaluations** by Michael S.:")
 toggle_ms = st.toggle("Challenges - Michael")
@@ -73,6 +79,7 @@ if toggle_ms:
     )
 st.divider()
 
+# presentation Marco + info by toggle about project challenges
 st.write("")
 st.write("**Webportal & KPI/Statistics** by Marco M.:")
 toggle_mm = st.toggle("Challenges - Marco")
