@@ -70,6 +70,8 @@ with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
              \nThe data is then aggregated on shipment level and enriched with relevant features such as weight differences, relative deviations, and kickout indicators.\
              \nIn addition, a mapping logic is implemented to assign production stops to the corresponding previous shipment.\
              \n\n**The final dataset is stored in a SQLite database and serves as the foundation for further analysis and machine learning.**")
+    st.write(
+        "**ETL-Pipeline:** [Github](https://github.com/mohamaddataeng/log-machine-pipeline/tree/main/scripts)")
 
 # showing expander for EDA description
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
@@ -128,7 +130,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Website-Portal & Configur
              \n\nIn the third and most extensive step, I developed and deployed all Streamlit Python files, including the corresponding content for KPIs, dashboards, functionalities, tables, and other components.\
              \nIn parallel, I applied exploratory data analysis (EDA) to identify and present the most relevant KPIs and visualizations.\
              \n\n**Result:** The [AWS-Portal](http://54.225.90.74/) :grey[(sign in with login and PW avoding bot-attacks)], and in addition the  [streamlit.io-Portal](https://dsimlnappio-dsi-finalproject.streamlit.app/) :grey[(free access)]")
-
+    st.write("**Python Environment:** [Github](https://github.com/MamicGit/Proj_Machine-Log-Navigator/tree/main/webpage)")
 st.divider()
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
