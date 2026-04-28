@@ -19,7 +19,7 @@ a machinelearning modell for the purpose of reducing package-kickouts for manual
 <br>Link: [MachineLogNavigator](http://54.225.90.74/) (for PW please contact ocram-handwerker@web.de)
 
 <b>or use the following link instead:</b>
-<br>Additional-Link: [MachineLogNavigator](https://dsimlnappio-dsi-finalproject.streamlit.app/data_mgmt)
+<br>Link2: [MachineLogNavigator](https://dsimlnappio-dsi-finalproject.streamlit.app/data_mgmt)
 <br><br><b>or alternatively local:</b>
 <br>1) download the folder 'webpage', 
 <br>2) open a CMD for this folder, 
