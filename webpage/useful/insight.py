@@ -23,114 +23,147 @@ st.markdown(
 
 # showing expander for Conveyor & Machine description
 with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    img_path = BASE_DIR / "images" / "TheMachine.png"
-    image = Image.open(img_path)
-    st.image(image, caption="Teams Project", width=800)
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "TheMachine.png"
+        image = Image.open(img_path)
+        st.image(image, caption="Teams Project", width="stretch")
 
-    st.markdown(
-        "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
-        unsafe_allow_html=True)
-    st.write("**Couple of unexpected behavior can happen on packaging lines and respective machines, such as:**\
-             \n* :red[Unfocused employees]\
-             \n* :red[Wear and tear on machinery]\
-             \n* :red[Material waste]\
-             \n* :red[Disorganized shift handover processes]\
-             \n:red[ect...]\
-             \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
+        st.markdown(
+            "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
+            unsafe_allow_html=True)
+        st.write("**Couple of unexpected behavior can happen on packaging lines and respective machines, such as:**\
+                 \n* :red[Unfocused employees]\
+                 \n* :red[Wear and tear on machinery]\
+                 \n* :red[Material waste]\
+                 \n* :red[Disorganized shift handover processes]\
+                 \n:red[ect...]\
+                 \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
 
 # showing expander for Logfile Generator
 with st.expander(":material/arrow_drop_down: :violet[**Logfile-Generator**]"):
-    col1, col2 = st.columns([1,1])
-    with col1:
+    col3, col4 = st.columns([1,1])
+    with col3:
         BASE_DIR = Path(__file__).resolve().parent.parent
-        img_path = BASE_DIR / "images" / "LogGeneratorA.PNG"
+        img_path = BASE_DIR / "images" / "LogGeneratorA.png"
         image = Image.open(img_path)
-        st.image(image, caption="by Marco M.", width=600)
-    with col2:
+        st.image(image, caption="by Marco M.", width="stretch")
+    with col4:
         BASE_DIR = Path(__file__).resolve().parent.parent
-        img_path = BASE_DIR / "images" / "LogGeneratorB.PNG"
+        img_path = BASE_DIR / "images" / "LogGeneratorB.png"
         image = Image.open(img_path)
-        st.image(image, caption="by Marco M.", width=600)
+        st.image(image, caption="by Marco M.", width="stretch")
 
     st.write("**Download Python-Code:** [Github](https://github.com/MamicGit/Proj_Machine-Log-Navigator/tree/main/Logfile_CustomerOrder_Generator)")
 
 # showing expander for ETL description
 with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    img_path = BASE_DIR / "images" / "Datenfluss_3.png"
-    image = Image.open(img_path)
-    st.image(image, caption="by Mohamad E.", width=800)
+    col5, col6 = st.columns([2, 1])
+    with col5:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "Datenfluss_3.png"
+        image = Image.open(img_path)
+        st.image(image, caption="by Mohamad E.", width="stretch")
 
-    st.markdown(
-        "<span style='color:black; font-weight:bold;'>:red[ETL Description]</span>",
-        unsafe_allow_html=True)
-    st.write("The ETL pipeline processes unstructured log data and transforms it into an analysis-ready dataset.\
-             \n\nRaw logs are first parsed, cleaned, and temporally normalized to ensure consistency.\
-             \nThe data is then aggregated on shipment level and enriched with relevant features such as weight differences, relative deviations, and kickout indicators.\
-             \nIn addition, a mapping logic is implemented to assign production stops to the corresponding previous shipment.\
-             \n\n**The final dataset is stored in a SQLite database and serves as the foundation for further analysis and machine learning.**")
-    st.write(
-        "**ETL-Pipeline:** [Github](https://github.com/mohamaddataeng/log-machine-pipeline/tree/main/scripts)")
+        st.markdown(
+            "<span style='color:black; font-weight:bold;'>:red[ETL Description]</span>",
+            unsafe_allow_html=True)
+        st.write("The ETL pipeline processes unstructured log data and transforms it into an analysis-ready dataset.\
+                 \n\nRaw logs are first parsed, cleaned, and temporally normalized to ensure consistency.\
+                 \nThe data is then aggregated on shipment level and enriched with relevant features such as weight differences, relative deviations, and kickout indicators.\
+                 \nIn addition, a mapping logic is implemented to assign production stops to the corresponding previous shipment.\
+                 \n\n**The final dataset is stored in a SQLite database and serves as the foundation for further analysis and machine learning.**")
+        st.write(
+            "**ETL-Pipeline:** [Github](https://github.com/mohamaddataeng/log-machine-pipeline/tree/main/scripts)")
 
 # showing expander for EDA description
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    img_path = BASE_DIR / "images" / "PresentationEDA.png"
-    image = Image.open(img_path)
-    st.image(image, caption="by Mohamad E.", width=800)
+    col7, col8 = st.columns([2, 1])
+    with col7:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "PresentationEDA.png"
+        image = Image.open(img_path)
+        st.image(image, caption="by Mohamad E.", width="stretch")
 
-    st.markdown(
-        "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
-        unsafe_allow_html=True)
-    st.write("Exploratory Data Analysis (EDA) was conducted to identify patterns and potential sources of production issues.\
-             \nThe analysis revealed clear patterns around shift changes, where kickout rates peak at approximately 06:00 and 22:00, indicating instability during operational transitions.\
-             \n\nIn contrast, midday operations remain relatively stable.\
-             \nA station-level analysis showed that Station 11 has a significantly higher kickout rate (~32%) compared to the average (~22%),\
-             \nsuggesting a station-specific issue rather than a system-wide problem.\
-             \n\nAdditionally, print quality analysis (SLAM 1 and SLAM 2) highlighted its influence on process stability and error occurrence,\
-             \nindicating that deviations in print quality can contribute to operational disruptions.\
-             \n\n**These findings help to better understand system behavior and provide a basis for targeted optimization measures.**")
+        st.markdown(
+            "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
+            unsafe_allow_html=True)
+        st.markdown("""
+        **Exploratory Data Analysis (EDA) identifies key patterns and sources of production issues.**
+        - Findings:
+            - Kickout rates peak during shift changes (~06:00 and ~22:00), indicating instability during transitions.
+            - Midday operations remain relatively stable.
+            - Station 11 shows a significantly higher kickout rate (~32% vs. ~22%), suggesting a local issue.
+            - Print quality (SLAM 1 & 2) impacts process stability and error rates.
+            - Stop probability remains low at normal speeds but increases sharply beyond ~2.3 m/s.
+            - Higher speeds significantly increase the risk of system instability and should be avoided.
+            """)
+        st.markdown("""
+        **These insights support targeted optimization and improved process stability.**
+        """)
 
 # showing expander for ML description
 with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
-    image = Image.open(img_path)
-    st.image(image, caption="by Michael S.", width=800)
+    col9, col10 = st.columns([2, 1])
+    with col9:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
+        image = Image.open(img_path)
+        st.image(image, caption="by Michael S.", width="stretch")
 
-    st.markdown(
-        "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
-        unsafe_allow_html=True)
+        st.markdown(
+            "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
+            unsafe_allow_html=True)
 
-    st.write("The goal of machine learning in this project was to find a way to increase process productivity for Quality Department, and increase customer experience.\
-             \n....\
-             \n\n...\
-             \n...\
-             \n...\
-             \n\n...\
-             \n...\
-             \n\n**Result:**")
+        st.write("The goal of machine learning in this project was to find a way to increase process productivity for Quality Department, and increase customer experience.\
+                 \n....\
+                 \n\n...\
+                 \n...\
+                 \n...\
+                 \n\n...\
+                 \n...\
+                 \n\n**Result:**")
 
 # showing expander for Website-Portal & Configurations description
 with st.expander(":material/arrow_drop_down: :violet[**Website-Portal & Configurations**]"):
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    img_path = BASE_DIR / "images" / "WebFlow.png"
-    image = Image.open(img_path)
-    st.image(image, caption="by Marco M.", width=800)
+    col11, col12 = st.columns([2, 1])
+    with col11:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        img_path = BASE_DIR / "images" / "WebFlow.png"
+        image = Image.open(img_path)
+        st.image(image, caption="by Marco M.", width="stretch")
 
     st.markdown(
         "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
         unsafe_allow_html=True)
 
-    st.write("As a first step, I set up the AWS environment with S3, an EC2 instance, EBS, an Elastic IP and a cost dashboard.\
-             \nAfterwards I ran some test.py scripts over a 1-week period to ensure the functionality, performance, stability, and cost efficiency of Python Streamlit on AWS.\
-             \n\nIn a second step, I concurrently created a Streamlit Cloud profile on share.streamlit.io (full independent second Web-Portal) along with an independent second Git repository,\
-             \nto have a backup option for the team avoiding any risk for the team-project.\
-             \n\nIn the third and most extensive step, I developed and deployed all Streamlit Python files, including the corresponding content for KPIs, dashboards, functionalities, tables, and other components.\
-             \nIn parallel, I applied exploratory data analysis (EDA) to identify and present the most relevant KPIs and visualizations.\
-             \n\n**Result:** The [AWS-Portal](http://54.225.90.74/) :grey[(sign in with login and PW avoding bot-attacks)], and in addition the  [streamlit.io-Portal](https://dsimlnappio-dsi-finalproject.streamlit.app/) :grey[(free access)]")
-    st.write("**Python Environment:** [Github](https://github.com/MamicGit/Proj_Machine-Log-Navigator/tree/main/webpage)")
+    st.markdown("""
+- **As very first step: Server checking and testing**
+    - Set up an AWS environment comprising S3, EC2 instances, EBS, Elastic IP, Nginx, and a cost control dashboard.
+    - Set up PuTTY and WinSCP for productive use.
+    - Executed test.py scripts over a one-week period to assess functionality, performance, stability, and cost efficiency of Python Streamlit on AWS.
+    - Created in parallel a Streamlit Cloud profile on [share.streamlit.io](https://share.streamlit.io/) as full independent second Web-Portal.
+    - Set up an independent second Git repository, ensuring no risk to project outcomes.
+    - Syntax and script procedures tested and standardized; running without errors on both servers.
+    """)
+    st.markdown("""
+- **As second most extensive step: Developing & deploying**
+    - Created a design mockup covering navigation bar behavior and file structure.
+    - Performed EDA to understand the data and establish best practices for KPIs, dashboards, tables, and other components.
+    - Implementation of all components and functions into the corresponding files.
+    - Filled the portal with content, including the ticket system and descriptions.
+    """)
+    st.markdown("""
+- **As final step: Review and complete**
+    - Requested unit tests and applied several updates.
+    """)
+    st.markdown("""
+- **Result:**
+    - [AWS-Portal](http://54.225.90.74/) :grey[(sign in with login and PW avoding bot-attacks)], and in addition the  [streamlit.io-Portal](https://dsimlnappio-dsi-finalproject.streamlit.app/) :grey[(free access)]
+    - *Python Environment:** [Github](https://github.com/MamicGit/Proj_Machine-Log-Navigator/tree/main/webpage)
+    """)
+
 st.divider()
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

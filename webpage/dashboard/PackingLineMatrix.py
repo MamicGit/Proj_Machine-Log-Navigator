@@ -16,10 +16,10 @@ st.markdown("<br>", unsafe_allow_html=True)
 # simulate station status, just for illustrative purposes. In production environment of a company a configuration for each slam is required
 df = pd.DataFrame({
     "SlamLine": [f"SLAM{str(i).zfill(2)}" for i in range(1, 9)],
-    "Conveyor Speed Risk": ["🔴", "🟡", "🟢", "🔴", "🟢", "🟡", "🟡", "🟢"],
+    "Conveyor Speed Risk": ["🟢", "🟢", "🟢", "🔴", "🟢", "🟢", "🟡", "🟢"],
     "Conveyor Stops Risk": ["🟢", "🔴", "🟢", "🟡", "🟢", "🟢", "🟢", "🟡"],
-    "Toner Risk": ["🟢", "🟢", "🟢", "🟡", "🟢", "🔴", "🟢", "🟢"],
-    "Kickout Risk": ["🟢", "🔴", "🟡", "🟢", "🟢", "🟢", "🔴", "🟢"],
+    "Toner Risk": ["🟢", "🟢", "🟢", "🟡", "🟢", "🟢", "🟢", "🟢"],
+    "Kickout Risk": ["🟢", "🟢", "🟡", "🟢", "🟢", "🟢", "🔴", "🟢"],
 })
 
 st.dataframe(df, hide_index=True)

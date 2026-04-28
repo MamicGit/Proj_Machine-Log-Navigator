@@ -14,9 +14,9 @@ st.write("Notes & Info's and Thanks")
 st.markdown(
     """
     ######
-    <span style='color:blue;'>
-    <b>first warm words:</b><br>
-    At the heart of this three-person team project are training sessions in Scrum, Python, ETL, EDA, SQLite, ML, AWS EC2/S3/SES/Lambda, Elastic IP, Streamlit, GitHub, Excel ect.,<br> 
+    <span style='color:black;'>
+    <b>First warm words:</b><br>
+    At the heart of this three-person team project are training sessions in <b>Scrum, Python, ETL, EDA, SQLite, ML, AWS EC2/S3/SES/Lambda, Elastic IP, Streamlit, GitHub, Excel ect.</b>,<br> 
     while ensuring the experience remains engaging and enjoyable throughout!<br>
     <br>Thanks a lot to <b><a href="https://data-science-institute.de/" target="_blank">DSI-Team</a></b> for their great six-month training program!<br>
     </span>
@@ -27,19 +27,24 @@ st.divider()
 
 # is showing our team, name order randomly for each refresh of page
 st.subheader("**Project Team**")
+
+var_marco = "[Marco M.](https://www.linkedin.com/in/marco-michaelis-4a610438a/)"
+var_michael = "[Michael S.](https://www.linkedin.com/in/schipper-michael/)"
+var_mohamad = "Mohamad E."
+
 var_teammember = randint(0,5)
 if var_teammember == 0:
-    team_mate = "Marco M.  |  Michael S.  |  Mohamad E."
+    team_mate = f"{var_marco} |  {var_michael}  |  {var_mohamad}"
 elif var_teammember == 1:
-    team_mate = "Marco M.  |  Mohamad E.  |  Michael S."
+    team_mate = f"{var_marco}  |  {var_mohamad}  |  {var_michael}"
 elif var_teammember == 2:
-    team_mate = "Mohamad E.  |  Marco M.  |  Michael S."
+    team_mate = f"{var_mohamad}  |  {var_marco}  |  {var_michael}"
 elif var_teammember == 3:
-    team_mate = "Mohamad E.  |  Michael S.  |  Marco M."
+    team_mate = f"{var_mohamad}  |  {var_michael}  |  {var_marco}"
 elif var_teammember == 4:
-    team_mate = "Michael S.  |  Mohamad E.  |  Marco M."
+    team_mate = f"{var_michael}  |  {var_mohamad}  |  {var_marco}"
 else:
-    team_mate = "Michael S.  |  Marco M.  |  Mohamad E."
+    team_mate = f"{var_michael}  |  {var_marco}  |  {var_mohamad}"
 st.write(team_mate)
 st.write("DSI Study Nov 2025 - Apr 2026")
 
