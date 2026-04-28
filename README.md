@@ -3,7 +3,9 @@ DSI Data Science Institute by Fabian Rappert,
 <br>Project process by Mohamad, Marco und Michael (April 2026)  
 <br>
 ### Project Idea:<br>Optimization and Controlling in Logistics – Parcel Shipping Process 
-![img_descr.png](img_descr.png)
+
+![Machine_GitHub.png](images/Machine_GitHub.png)
+
 1. **GOAL:** <br>
 a web-based dashboard based on the log data of a parcel shipping label printer for the purpose of monitoring the packing line
 <br></br>
