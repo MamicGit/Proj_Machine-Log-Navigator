@@ -19,7 +19,7 @@ with col1:
     st.write("KPI's & Statistics for Packaging Line Controlling")
 with col2:
     # temporary dropdown for presentation to simulate 5 times of a day
-    zeit = st.selectbox("**Time of Day** \n\n:red[(*for Presentation*)]", ["03:05", "06:55", "13:35", "15:50", "23:59"])
+    zeit = st.selectbox("**Time of Day** \n\n:red[(*for Presentation*)]", ["03:05", "06:55", "13:35", "15:50", "23:59"], index=2)
     st.session_state["filter_time"] = zeit
 with col3:
     options = ["SLAM01", "SLAM02", "SLAM03", "SLAM04", "SLAM05", "SLAM06", "SLAM07", "SLAM08", "....."]

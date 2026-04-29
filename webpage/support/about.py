@@ -59,9 +59,7 @@ if toggle_me:
         """
         <span style='color:grey;'>
         My challenge ...<br> 
-        ....<br>
-        ...
-        </span>
+        <br></span>
         """,
         unsafe_allow_html=True
     )
@@ -75,9 +73,7 @@ if toggle_ms:
     st.markdown(
         """
         <span style='color:grey;'>
-        My challenge ...<br> 
-        ....<br>
-        ...
+        My challenge...<br> 
         <br></span>
         """,
         unsafe_allow_html=True
