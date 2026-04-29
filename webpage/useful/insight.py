@@ -19,8 +19,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 # # # Visualizations, Flow & Summary
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 st.markdown(
-    "##### <span style='color:darkblue; font-weight:bold;'>Visualization, Flow & Summary</span>",
-    unsafe_allow_html=True)
+    "#### :material/analytics: Analytics & Flow Visualization"
+)
 
 # Project skizze Conveyor & Machine description
 with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
@@ -198,11 +198,11 @@ st.divider()
 # # # Process Elements
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 st.markdown(
-    "##### <span style='color:darkblue; font-weight:bold;'>Process Elements & KPIs</span>",
-    unsafe_allow_html=True)
+    "#### :material/conveyor_belt: Process Elements & KPIs"
+)
 
 # showing expander for description of Conveyor Speed + KPI details
-with st.expander(":material/arrow_drop_down: :red[**Conveyor Speed**]"):
+with st.expander(":material/arrow_drop_down: :violet[**Conveyor Speed**]"):
     st.write("The packing line conveyor belt is divided into at least four independently running belts.\
              \nFor slam machine & label printer its a second smaller one. It directs the packages, which are fed to the machine at precisely equal intervals, for label processing!\
              \nThe speed can be various between 0.8 m/s and 2.4 m/s to ensure the correct distances before labeling. Speed of 2.38 m/s leads to an issue.\
@@ -215,7 +215,7 @@ with st.expander(":material/arrow_drop_down: :red[**Conveyor Speed**]"):
              \n**In the end, it shows how often a sharp spike occurs within a 5-minute window, how high that spike is, and whether the technical team needs to reconfigure the conveyor belt!**")
 
 # showing expander for description of Machine Stops + KPI details
-with st.expander(":material/arrow_drop_down: :red[**Machine Stops**]"):
+with st.expander(":material/arrow_drop_down: :violet[**Machine Stops**]"):
     st.write("Stop of conveyor and machine can have various reasons, such as 'Package queue conflicts', 'Toner Refill', 'Change of label material' and some more.\
              \nFor reason 'Package queue conflicts' its mostly based on uneven belt speed which leads into a auto-stop and the risk for package swicheroos!")
     st.markdown(
@@ -225,7 +225,7 @@ with st.expander(":material/arrow_drop_down: :red[**Machine Stops**]"):
              \nThe higher the KPI, the higher the risk for customer impact for Swicheroos. The action should be discussion with Slam-Operator and technical team to adapt conveyor belt configuration.")
 
 # showing expander for description of Print Quality + KPI details
-with st.expander(":material/arrow_drop_down: :red[**Print Quality**]"):
+with st.expander(":material/arrow_drop_down: :violet[**Print Quality**]"):
     st.write("Each packaging line typically has two label printers that draw the necessary ink from a single toner cartridge.\
              \nIt is not unusual for the two printers to have different print qualities!\
              \nThe lower the print quality, the lower the toner level, among other things. When the print quality drops to 88%, the toner cartridge must be replaced/refilled.")
